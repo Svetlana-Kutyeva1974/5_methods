@@ -53,8 +53,20 @@ test('level domage 20', () => {
   expect(result3.health).toBeCloseTo(85);
 });
 
+test('level health error', () => {
+  const result3 = new heroes.Character('hero8', 'Bowman');
+  result3.health = 0;
+  /*
+  result3.levelUp();
+  */
+  expect(result3.levelUp()).toThrowError('Нельзя повысить уровень умершего');
+});
+
 test('level domage error', () => {
   const result3 = new heroes.Character('hero8', 'Bowman');
+  result3.health = -1;
+  /*
   result3.damage(2000);
-  expect(result3.health).toThrowError('Ошибка, уровень жизни игрока меньше нуля');
+  */
+  expect(result3.damage(2000)).toThrowError('Ошибка, уровень жизни игрока меньше нуля');
 });
