@@ -9,7 +9,7 @@ test.each([
   ['hero6', 'Magician', new heroes.Magician('hero6', 'Magician')],
   ['hero7', 'Magician', new heroes.Magician('hero7', 'Magician')],
 ])(
-  'should return a string corresponding to the health level',
+  'return a string corresponding to the new class',
   (name, type, createNewObject) => {
     for (const key of Object.values(heroes)) {
       const ClassName = key;
@@ -34,7 +34,27 @@ test(' level live +1', () => {
   expect(result4.levelUp()).;
 });
 */
+test.each([
+  [1, 25, 25, 100, new heroes.Character('hero12', 'Bowman')],
+])(
+  ' return to the health level',
+  (level, attack, defence, health, createNewObject) => {
+    createNewObject.levelUp();
+    expect(level).toBe(1);
+    expect(attack).toBeCloseTo(25);
+    expect(defence).toBeCloseTo(25);
+    expect(health).toBe(100);
+  },
+);
+
 test('level domage 20', () => {
   const result3 = new heroes.Character('hero8', 'Bowman');
-  expect(result3.damage(20)).toBe(85);
+  result3.damage(20);
+  expect(result3.health).toBeCloseTo(85);
+});
+
+test('level domage error', () => {
+  const result3 = new heroes.Character('hero8', 'Bowman');
+  result3.damage(2000);
+  expect(result3.health).toThrowError('Ошибка, уровень жизни игрока меньше нуля');
 });
