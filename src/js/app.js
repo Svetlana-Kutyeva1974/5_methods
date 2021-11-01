@@ -19,8 +19,6 @@ constructor(name, type) { //
   this.type = type;
   this.health = 100;
   this.level = 1;
-  this.attack = Character.TYPES[`${type}`][0];
-  this.defence = Character.TYPES[`${type}`][1];
 }
 
 levelUp() {
