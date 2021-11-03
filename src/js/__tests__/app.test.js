@@ -1,4 +1,4 @@
-import * as heroes from '../app.js';
+import Character from '../app.js';
 /*
 test.each([
   ['hero1', 'Bowman', new heroes.Character('hero1', 'Bowman')],
@@ -19,14 +19,18 @@ test.each([
   },
 );
 */
-test('string length name error', () => {
-  const result2 = new heroes.Magician('heroismerror', 'Magician');
-  expect(result2).toThrowError(new Error('Ошибка, имя должно содержать не менее 2 и не более 10 символов'));
+test('app string length name error', () => {
+  expect(() => {
+    // eslint-disable-next-line no-unused-vars
+    const obj = new Character('heroismerror', 'Magician');
+  }).toThrow(/Ошибка, имя должно содержать не менее 2 и не более 10 символов/);
 });
-test('type error', () => {
-  const result3 = new heroes.Character('hero6', 'Magiciancheck');
-  const err1 = 'Ошибка, недопустимый тип элемента';
-  expect(result3).toThrowError(err1);
+
+test('app type error ', () => {
+  expect(() => {
+    // eslint-disable-next-line no-unused-vars
+    const result3 = new Character('hero5', 'Magiciancheck');
+  }).toThrow(/Ошибка, недопустимый тип элемента/);
 });
 /*
 test(' level live +1', () => {
@@ -35,7 +39,7 @@ test(' level live +1', () => {
 });
 */
 test.each([
-  [1, 25, 25, 100, new heroes.Character('hero12', 'Bowman')],
+  [1, 25, 25, 100, new Character('hero12', 'Bowman')],
 ])(
   ' return to the health level',
   (level, attack, defence, health, createNewObject) => {
@@ -48,25 +52,26 @@ test.each([
 );
 
 test('level domage 20', () => {
-  const result3 = new heroes.Character('hero8', 'Bowman');
+  const result3 = new Character('hero8', 'Bowman');
   result3.damage(20);
   expect(result3.health).toBeCloseTo(85);
 });
 
 test('level health error', () => {
-  const result3 = new heroes.Character('hero8', 'Bowman');
+  const result3 = new Character('hero8', 'Bowman');
   result3.health = 0;
-  /*
-  result3.levelUp();
-  */
-  expect(result3.levelUp()).toThrowError('Нельзя повысить уровень умершего');
+  expect(() => {
+    result3.levelUp();
+  }).toThrow(/Нельзя повысить уровень умершего/);
 });
 
 test('level domage error', () => {
-  const result3 = new heroes.Character('hero8', 'Bowman');
+  const result3 = new Character('hero8', 'Bowman');
   result3.health = -1;
   /*
   result3.damage(2000);
   */
-  expect(result3.damage(2000)).toThrowError('Ошибка, уровень жизни игрока меньше нуля');
+  expect(() => {
+    result3.damage(2000);
+  }).toThrow(/Ошибка, уровень жизни игрока меньше нуля/);
 });

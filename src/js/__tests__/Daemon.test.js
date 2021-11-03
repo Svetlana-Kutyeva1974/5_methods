@@ -14,5 +14,21 @@ test('string length name error', () => {
 test('string length name error', () => {
   const result1 = new Daemon('hero', 'Daemon');
   const result2 = new Character('hero', 'Daemon');
-  expect(result2).toEqual(result1);
+  expect(result2).not.toMatchObject(result1);
+});
+
+test('bow super type error ', () => {
+  const result3 = new Daemon('hero5', 'Daemon');
+  const result33 = new Character('hero5', 'Daemon');
+  result3.damage(10);
+  result33.damage(10);
+  expect(result3.damage(10)).toBe(result33.damage(10));
+});
+
+test('bow super level type error ', () => {
+  const result3 = new Daemon('hero5', 'Daemon');
+  const result33 = new Character('hero5', 'Daemon');
+  result3.levelUp();
+  result33.levelUp();
+  expect(result3.levelUp()).toBe(result33.levelUp());
 });

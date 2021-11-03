@@ -1,4 +1,4 @@
-export class Character {
+export default class Character {
 static TYPES = {
   Bowman: [25, 25],
   Swordsman: [40, 10],
@@ -39,17 +39,4 @@ damage(points) {
     throw new Error('Ошибка, уровень жизни игрока меньше нуля');
   }
 }
-}
-
-export class Bowman extends Character {
-}
-export class Magician extends Character {
-}
-export class Swordsman extends Character {
-}
-export class Daemon extends Character {
-}
-export class Zombie extends Character {
-}
-export class Undead extends Character {
 }
