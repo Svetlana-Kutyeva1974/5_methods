@@ -13,31 +13,7 @@ test('app type error ', () => {
     const result3 = new Character('hero5', 'Magiciancheck');
   }).toThrow(/Ошибка, недопустимый тип элемента/);
 });
-/*
-test.each([
-  [1, 25, 25, 100, new Character('hero12', 'Bowman')],
-])(
-  ' return to the health level',
-  (level, attack, defence, health, createNewObject) => {
-    createNewObject.levelUp();
-    expect(level).toBe(1);
-    expect(attack).toBeCloseTo(25);
-    expect(defence).toBeCloseTo(25);
-    expect(health).toBe(100);
-  },
-);
-*/
-/*
-test('damage уменьшение здоровья персонажа', () => {
-  const heroes = new Character('hero', 'Bowman');
-  console.log(heroes);
-  heroes.damage.call('Character', 65);
-  // eslint-disable-next-line no-unused-vars
-  const result = heroes.health;
-  console.log(heroes);
-  expect(result).toBeCloseTo(51.25);
-});
-*/
+
 test('level health error', () => {
   expect(() => {
     const result3 = new Character('hero8', 'Bowman');
