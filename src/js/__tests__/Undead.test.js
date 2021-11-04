@@ -17,18 +17,32 @@ test('string length name error', () => {
   expect(result2).not.toMatchObject(result1);
 });
 
-test('bow super type error ', () => {
-  const result3 = new Undead('hero5', 'Undead');
-  const result33 = new Character('hero5', 'Undead');
-  result3.damage(10);
-  result33.damage(10);
-  expect(result3.damage(10)).toBe(result33.damage(10));
+test('Повышение уровня умершего персонажа. Ошибка', () => {
+  expect(() => {
+    const result = new Undead('hero', 'Undead');
+    result.health = 0;
+    result.levelUp();
+  }).toThrow('Нельзя повысить уровень умершего');
 });
 
-test('bow super level type error ', () => {
-  const result3 = new Undead('hero5', 'Undead');
-  const result33 = new Character('hero5', 'Undead');
-  result3.levelUp();
-  result33.levelUp();
-  expect(result3.levelUp()).toBe(result33.levelUp());
+test('Повышение уровня персонажа. Ошибка', () => {
+  const result = new Undead('hero', 'Undead');
+  result.health = 80;
+  result.levelUp();
+  const expected = {
+    name: 'hero',
+    type: 'Undead',
+    health: 100,
+    level: 2,
+    attack: 30,
+    defence: 30,
+  };
+  expect(result).toEqual(expected);
+});
+
+test('damage уменьшение здоровья персонажа', () => {
+  const heroes = new Undead('hero', 'Undead');
+  heroes.damage(65);
+  const result = heroes.health;
+  expect(result).toBeCloseTo(51.25);
 });

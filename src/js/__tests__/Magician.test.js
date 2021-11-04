@@ -11,24 +11,32 @@ test('string length name error', () => {
   expect(result0.defence).toBe(Character.TYPES[`${result0.type}`][1]);
 });
 
-test('string length name error', () => {
-  const result1 = new Magician('hero', 'Magician');
-  const result2 = new Character('hero', 'Magician');
-  expect(result2).not.toMatchObject(result1);
+test('Повышение уровня умершего персонажа. Ошибка', () => {
+  expect(() => {
+    const result = new Magician('hero', 'Magician');
+    result.health = 0;
+    result.levelUp();
+  }).toThrow('Нельзя повысить уровень умершего');
 });
 
-test('bow super type error ', () => {
-  const result3 = new Magician('hero5', 'Magician');
-  const result33 = new Character('hero5', 'Magician');
-  result3.damage(20);
-  result33.damage(20);
-  expect(result3.damage(20)).toBe(result33.damage(20));
+test('Повышение уровня персонажа', () => {
+  const result = new Magician('hero', 'Magician');
+  result.health = 50;
+  result.levelUp();
+  const expected = {
+    name: 'hero',
+    type: 'Magician',
+    health: 100,
+    level: 2,
+    attack: 12,
+    defence: 48,
+  };
+  expect(result).toEqual(expected);
 });
 
-test('bow super level type error ', () => {
-  const result3 = new Magician('hero5', 'Magician');
-  const result33 = new Character('hero5', 'Magician');
-  result3.levelUp();
-  result33.levelUp();
-  expect(result3.levelUp()).toBe(result33.levelUp());
+test('damage уменьшение здоровья персонажа', () => {
+  const heroes = new Magician('hero', 'Magician');
+  heroes.damage(20);
+  const result = heroes.health;
+  expect(result).toBeCloseTo(88);
 });

@@ -6,12 +6,4 @@ export default class Zombie extends Character {
     this.attack = Character.TYPES[`${this.type}`][0];
     this.defence = Character.TYPES[`${this.type}`][1];
   }
-
-  damage(point) {
-    super.damage(point);
-  }
-
-  levelUp() {
-    super.levelUp();
-  }
 }

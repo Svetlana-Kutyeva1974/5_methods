@@ -11,24 +11,32 @@ test('string length name error', () => {
   expect(result0.defence).toBe(Character.TYPES[`${result0.type}`][1]);
 });
 
-test('string length name error', () => {
-  const result1 = new Zombie('hero', 'Zombie');
-  const result2 = new Character('hero', 'Zombie');
-  expect(result2).not.toMatchObject(result1);
+test('Повышение уровня умершего персонажа. Ошибка', () => {
+  expect(() => {
+    const result = new Zombie('hero', 'Zombie');
+    result.health = 0;
+    result.levelUp();
+  }).toThrow('Нельзя повысить уровень умершего');
 });
 
-test('bow super type error ', () => {
-  const result3 = new Zombie('hero5', 'Zombie');
-  const result33 = new Character('hero5', 'Zombie');
-  result3.damage(2);
-  result33.damage(2);
-  expect(result3.damage(2)).toBe(result33.damage(2));
+test('Повышение уровня персонажа', () => {
+  const result = new Zombie('hero', 'Zombie');
+  result.health = 60;
+  result.levelUp();
+  const expected = {
+    name: 'hero',
+    type: 'Zombie',
+    health: 100,
+    level: 2,
+    attack: 48,
+    defence: 12,
+  };
+  expect(result).toEqual(expected);
 });
 
-test('bow super level type error ', () => {
-  const result3 = new Zombie('hero5', 'Zombie');
-  const result33 = new Character('hero5', 'Zombie');
-  result3.levelUp();
-  result33.levelUp();
-  expect(result3.levelUp()).toBe(result33.levelUp());
+test('damage уменьшение здоровья персонажа', () => {
+  const heroes = new Zombie('hero', 'Zombie');
+  heroes.damage(50);
+  const result = heroes.health;
+  expect(result).toBeCloseTo(55);
 });

@@ -11,24 +11,32 @@ test('string length name error', () => {
   expect(result0.defence).toBe(Character.TYPES[`${result0.type}`][1]);
 });
 
-test('string length name error', () => {
-  const result1 = new Daemon('hero', 'Daemon');
-  const result2 = new Character('hero', 'Daemon');
-  expect(result2).not.toMatchObject(result1);
+test('Повышение уровня умершего персонажа. Ошибка', () => {
+  expect(() => {
+    const result = new Daemon('hero', 'Daemon');
+    result.health = 0;
+    result.levelUp();
+  }).toThrow('Нельзя повысить уровень умершего');
 });
 
-test('bow super type error ', () => {
-  const result3 = new Daemon('hero5', 'Daemon');
-  const result33 = new Character('hero5', 'Daemon');
-  result3.damage(10);
-  result33.damage(10);
-  expect(result3.damage(10)).toBe(result33.damage(10));
+test('Повышение уровня персонажа', () => {
+  const result = new Daemon('hero', 'Daemon');
+  result.health = 50;
+  result.levelUp();
+  const expected = {
+    name: 'hero',
+    type: 'Daemon',
+    health: 100,
+    level: 2,
+    attack: 12,
+    defence: 48,
+  };
+  expect(result).toEqual(expected);
 });
 
-test('bow super level type error ', () => {
-  const result3 = new Daemon('hero5', 'Daemon');
-  const result33 = new Character('hero5', 'Daemon');
-  result3.levelUp();
-  result33.levelUp();
-  expect(result3.levelUp()).toBe(result33.levelUp());
+test('damage уменьшение здоровья персонажа', () => {
+  const heroes = new Daemon('hero', 'Daemon');
+  heroes.damage(20);
+  const result = heroes.health;
+  expect(result).toBeCloseTo(88);
 });

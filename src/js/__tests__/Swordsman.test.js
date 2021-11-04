@@ -10,24 +10,32 @@ test('string length name error', () => {
   const result0 = new Swordsman('hero', 'Swordsman');
   expect(result0.defence).toBe(Character.TYPES[`${result0.type}`][1]);
 });
-
-test('string length name error', () => {
-  const result1 = new Swordsman('hero', 'Swordsman');
-  const result2 = new Character('hero', 'Swordsman');
-  expect(result2).not.toMatchObject(result1);
-});
-test('bow super type error ', () => {
-  const result3 = new Swordsman('hero5', 'Swordsman');
-  const result33 = new Character('hero5', 'Swordsman');
-  result3.damage(4);
-  result33.damage(4);
-  expect(result3.damage(4)).toBe(result33.damage(4));
+test('Повышение уровня умершего персонажа. Ошибка', () => {
+  expect(() => {
+    const result = new Swordsman('hero', 'Swordsman');
+    result.health = 0;
+    result.levelUp();
+  }).toThrow('Нельзя повысить уровень умершего');
 });
 
-test('bow super level type error ', () => {
-  const result3 = new Swordsman('hero5', 'Swordsman');
-  const result33 = new Character('hero5', 'Swordsman');
-  result3.levelUp();
-  result33.levelUp();
-  expect(result3.levelUp()).toBe(result33.levelUp());
+test('Повышение уровня персонажа', () => {
+  const result = new Swordsman('hero', 'Swordsman');
+  result.health = 80;
+  result.levelUp();
+  const expected = {
+    name: 'hero',
+    type: 'Swordsman',
+    health: 100,
+    level: 2,
+    attack: 48,
+    defence: 12,
+  };
+  expect(result).toEqual(expected);
+});
+
+test('damage уменьшение здоровья персонажа', () => {
+  const heroes = new Swordsman('hero', 'Swordsman');
+  heroes.damage(50);
+  const result = heroes.health;
+  expect(result).toBeCloseTo(55);
 });
